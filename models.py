@@ -1,37 +1,25 @@
 import datetime
-from flask import Flask, jsonify, g
-from flask_login import UserMixin
+
+from flask import Flask
 from peewee import *
-# import os from playhouse.db_url
-# import multiprocessing.connect
+from flask_login import UserMixin
+from playhouse.db_url import connect
+# import os
 
-DATABASE =SqliteDatabase('playlists.sqlite')
+DATABASE = SqliteDatabase('spotless.sqlite')
 
-
-# if 'ON_HEROKU' in os.environ:
-#     DATABASE = connect(os.environ.get
-#         ('DATABASE_URL'))
-#     else DATABASE = PostgresqlDatabase('Spotless_app')
-
-# Class User(UserMixin, Model):
-#     username = CharField(unique = True)
-#     email = CharField(unique = True)
-#     password = CharField()
-#     created_at = DateTimeField(default=datetime.datetime.now)
+class User(UserMixin, Model):
+    username = CharField(unique = True)
+    email = CharField(unique = True)
+    password = CharField()
+    created_at = DateTimeField(default=datetime.datetime.now)
     
-class Meta:
-    database = DATABASE
-    
-class Playlist(Model):
-    name = CharField()  
-    # owner = ForeignKeyField(User, backref = 'playlists')
-    
-class Meta:
+    class Meta:
         database = DATABASE
-        
+
+    # Create Tables
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Playlist], 
-    safe=True)
-    print('Tables Created')
+    DATABASE.create_tables([User], safe=True)
     DATABASE.close()
+    

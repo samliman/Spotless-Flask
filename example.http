@@ -1,0 +1,7 @@
+ POST http://localhost:8000/api/v1/users/login HTTP/1.1
+
+ {
+"username": "sam1",
+"email": "sam@sam.com",
+"password": "asdf"
+}
