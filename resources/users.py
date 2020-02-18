@@ -12,7 +12,7 @@ users = Blueprint('users', 'users')
 def register():
     payload = request.get_json(force = True)
     payload['email'].lower()
-    
+    print('line 15',payload)
     try:
         models.User.get(models.User.email == payload['email'])
 
@@ -30,7 +30,7 @@ def register():
 def login():
     payload = request.get_json(force = True)
     payload['email'].lower()
-
+    print('line 33', payload)
     try:
         user = models.User.get(models.User.email == payload['email'])
 
@@ -54,3 +54,12 @@ def logout():
     logout_user()
 
     return jsonify(data={}, status = { 'code': 200, 'message': f"Successfully logged out {email}"})
+    
+@users.route('/test', methods = ['GET'])
+def test():
+    try:
+        users = [model_to_dict(user) for user in models.User.select()]
+        print(users)
+        return jsonify(data=users, status={"code": 200, "message": "Success"})
+    except models.DoesNotExist:
+        return jsonify(data={}, status={"code": 400, "message": "Error getting the resources"})

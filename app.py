@@ -6,11 +6,14 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 app.secret_key = 'clandestine'
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 
 import models
 from resources.users import users
+
+CORS(users, origin=['http://localhost:3000'], supports_credentials=True)
 
 @login_manager.user_loader
 def load_user(userid):
@@ -31,8 +34,9 @@ def unauthorized():
         }
     )
 
-CORS(users, origin=['http://localhost:3000'])
+
 # http://localhost:8000/api/v1/users/...
+
 app.register_blueprint(users, url_prefix='/api/v1/users')
 
 # Default route

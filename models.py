@@ -6,8 +6,8 @@ from flask_login import UserMixin
 from playhouse.db_url import connect
 # import os
 
-DATABASE = SqliteDatabase('spotless.sqlite')
 
+DATABASE = SqliteDatabase('spotless.sqlite')
 class User(UserMixin, Model):
     username = CharField(unique = True)
     email = CharField(unique = True)
