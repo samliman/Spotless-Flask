@@ -1,7 +1,22 @@
- POST http://localhost:8000/api/v1/users/login HTTP/1.1
+#   POST http://localhost:8000/api/v1/users/register HTTP/1.1
+
+#  {
+#     "username": "sam",
+#     "email": "sam@sam.sam",
+#     "password": "asdsf"
+# } 
+
+  POST http://localhost:8000/api/v1/users/login HTTP/1.1
 
  {
-"username": "sam1",
-"email": "sam@sam.com",
-"password": "asdf"
+    "email": "sam@sam.sam",
+    "password": "asdsf"
+} 
+
+POST http://localhost:8000/api/v1/playlists/create HTTP/1.1
+
+ {
+    "name": "Beatz",
+    "tracks": "trackz",
+    "created_by": 1
 }

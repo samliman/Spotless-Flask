@@ -50,7 +50,6 @@ def login():
 @users.route('/logout', methods = ['GET'])
 def logout():
     email = model_to_dict(current_user)['email']
-
     logout_user()
 
     return jsonify(data={}, status = { 'code': 200, 'message': f"Successfully logged out {email}"})

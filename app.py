@@ -12,7 +12,9 @@ login_manager.init_app(app)
 
 import models
 from resources.users import users
+from resources.playlists import playlists
 
+CORS(playlists, origin=['http://localhost:3000'], supports_credentials=True)
 CORS(users, origin=['http://localhost:3000'], supports_credentials=True)
 
 @login_manager.user_loader
@@ -34,10 +36,8 @@ def unauthorized():
         }
     )
 
-
-# http://localhost:8000/api/v1/users/...
-
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(playlists, url_prefix='/api/v1/playlists')
 
 # Default route
 @app.route('/')
