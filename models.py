@@ -11,7 +11,7 @@ if 'ON_HEROKU' in os.environ:
 else: DATABASE = SqliteDatabase('spotless1.sqlite')
 
 class User(UserMixin, Model):
-    username = ChcheckorField(unique = True)
+    username = CharField(unique = True)
     email = CharField(unique = True)
     password = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
