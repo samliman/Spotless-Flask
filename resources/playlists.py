@@ -5,7 +5,18 @@ from flask_login import current_user, login_required
 import models
 
 playlists = Blueprint('playlists', 'playlists')
-
+# All playlists 
+@playlists.route('/', methods=["GET"])
+def get_all_playlist():
+    try:
+        lists = [model_to_dict(list) for list in models.Playlist.select()]
+        print(lists)
+        for list in lists:
+            list['created_by'].pop('password')
+        return jsonify(data=lists, status={"code": 200, "message": "Success"})
+    except models.DoesNotExist:
+        return jsonify(data={}, status={"code": 400, "message": "Error getting the resources"})
+    
 # Create route
 @playlists.route('/create', methods=["POST"])
 @login_required
@@ -14,8 +25,8 @@ def create_playlist():
         payload = request.get_json(force = True)
         payload['created_by'] = current_user.id
         playlist = models.Playlist.create(**payload)
-        print(playlist.__dict__)
-        print(dir(playlist)) #########################
+        # print(playlist.__dict__)
+        # print(dir(playlist)) #########################
         playlist_dict = model_to_dict(playlist)
 
         return jsonify(data = playlist_dict, status = {"code": 201, "message": "Success"})

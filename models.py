@@ -8,7 +8,7 @@ import os
 
 if 'ON_HEROKU' in os.environ:
     DATABASE = connect(environ.get('DATABASE_URL'))
-else: DATABASE = SqliteDatabase('spotless.sqlite')
+else: DATABASE = SqliteDatabase('spotless1.sqlite')
 
 class User(UserMixin, Model):
     username = CharField(unique = True)

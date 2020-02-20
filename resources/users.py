@@ -30,7 +30,6 @@ def register():
 def login():
     payload = request.get_json(force = True)
     payload['email'].lower()
-    print('line 33', payload)
     try:
         user = models.User.get(models.User.email == payload['email'])
 
